@@ -9,6 +9,7 @@ Desktop.ini
 $RECYCLE.BIN/
 node_modules/
 
+
 # Windows Installer files
 *.cab
 *.msi

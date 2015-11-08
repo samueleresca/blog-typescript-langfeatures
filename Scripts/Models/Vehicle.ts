@@ -48,4 +48,8 @@ class Vehicle {
 	set Weight(weight: number) {
 		this._weight = weight;
 	}
+	
+	get Ticket(){
+		return this.ticket;
+	}
 }

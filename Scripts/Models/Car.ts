@@ -11,20 +11,20 @@ class Car extends Vehicle {
 		this._license_plate = license_plate;
 	}
 
-	get getCarInsurance() {
+	get CarInsurance() {
 		return this._car_insurance;
 	}
 
-	set setCarInsurance(car_insurance: string) {
+	set CarInsurance(car_insurance: string) {
 		this._car_insurance = car_insurance;
 	}
 
 
-	get getLicensePlate() {
+	get LicensePlate() {
 		return this._license_plate;
 	}
 
-	set setLicensePlate(license_plate: string) {
+	set LicensePlate(license_plate: string) {
 		this._license_plate = license_plate;
 	}
 

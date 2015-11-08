@@ -1,7 +1,12 @@
+/// <reference path="Ticket.ts"/>
+
 class Vehicle {
 	private _brand: string;
 	private _height: number;
 	private _weight: number;
+
+	private _isParked: boolean;
+	private ticket: Ticket;
 
 
 	constructor(brand: string, height: number, weight: number) {
@@ -10,30 +15,37 @@ class Vehicle {
 		this._weight = weight
 	}
 
-	get getBrand() {
+	parkingCar(): Ticket {
+
+		if (!this._isParked) {
+			var id = Math.floor(Math.random() * 10).toString();
+			var newTck = new Ticket(id, null);
+			return newTck;
+		}
+		return null;
+	}
+
+	get Brand() {
 		return this._brand;
 	}
 
-	set setBrand(brand: string) {
+	set Brand(brand: string) {
 		this._brand = brand;
 	}
 
-	get getHeight() {
+	get Height() {
 		return this._height;
 	}
 
-	set setHeight(height: number) {
+	set Height(height: number) {
 		this._height = height;
 	}
 
-
-	get getWeight() {
+	get Weight() {
 		return this._weight;
 	}
 
-	set setWeight(weight: number) {
+	set Weight(weight: number) {
 		this._weight = weight;
 	}
-
-
 }

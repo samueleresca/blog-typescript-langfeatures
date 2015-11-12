@@ -43,11 +43,11 @@ var Vehicle = (function () {
     Vehicle.prototype.parkingVehicle = function () {
         if (!this._isParked) {
             var id = Math.floor(Math.random() * 10).toString();
-            var newTck = new Ticket(id, null);
+            var newTck = new Ticket(id, undefined);
             this._ticket = newTck;
             return newTck;
         }
-        return null;
+        return undefined;
     };
     Object.defineProperty(Vehicle.prototype, "Brand", {
         get: function () {
@@ -178,17 +178,21 @@ var ParkingLotSimple = (function () {
     ParkingLotSimple.prototype.parkVehicle = function (vehicle) {
         this._vehicles.push(vehicle);
         var tck = vehicle.parkingVehicle();
-        if (tck == null) {
-            return null;
+        if (tck == undefined) {
+            return undefined;
         }
         return tck;
     };
     ParkingLotSimple.prototype.exitVehicle = function (ticket) {
         var targetId = ticket.Id;
         //TODO: Verifica corretto funzionamento su tuttti i browser
-        var target = this._vehicles.find(function (tmp) { return tmp.Ticket.Id == targetId; });
-        if (target == null) {
-            return null;
+        var target = this._vehicles.find(function (tmp) { return typeof tmp !== "undefined" && tmp.Ticket.Id == targetId; });
+        var index = this._vehicles.indexOf(target);
+        if (index > -1) {
+            this._vehicles.splice(index, 1);
+        }
+        if (target == undefined) {
+            return undefined;
         }
         return target;
     };

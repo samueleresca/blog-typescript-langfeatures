@@ -38,8 +38,8 @@ class ParkingLotSimple implements ParkingLot<Vehicle, Ticket>  {
 
 		var tck = vehicle.parkingVehicle();
 
-		if (tck == null) {
-			return null;
+		if (tck == undefined) {
+			return undefined;
 		}
 
 		return tck;
@@ -47,10 +47,14 @@ class ParkingLotSimple implements ParkingLot<Vehicle, Ticket>  {
 	exitVehicle(ticket: Ticket): Vehicle {
 		var targetId = ticket.Id;
 		//TODO: Verifica corretto funzionamento su tuttti i browser
-		var target = this._vehicles.find(tmp=> tmp.Ticket.Id == targetId);
+		var target = this._vehicles.find(tmp=> typeof tmp !== "undefined" && tmp.Ticket.Id == targetId);
+		var index = this._vehicles.indexOf(target);
+		if(index>-1){
+			this._vehicles.splice(index,1);
+		}
 
-		if (target == null) {
-			return null;
+		if (target == undefined) {
+			return undefined;
 		}
 		return target;
 	}

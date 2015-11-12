@@ -19,11 +19,11 @@ class Vehicle {
 
 		if (!this._isParked) {
 			var id = Math.floor(Math.random() * 10).toString();
-			var newTck = new Ticket(id, null);
+			var newTck = new Ticket(id, undefined);
 			this._ticket = newTck;
 			return newTck;
 		}
-		return null;
+		return undefined;
 	}
 
 	get Brand() {

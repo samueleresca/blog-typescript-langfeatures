@@ -149,9 +149,32 @@ if (!Array.prototype.find) {
 /// <reference path="Utils.ts"/>
 var ParkingLotK = (function () {
     //TODO:More constructor????
-    function ParkingLotK() {
-        this._vehicles = new Array();
+    function ParkingLotK(address, capability) {
+        this._address = address;
+        this._capability = capability;
+        this._vehicles = new Array(this._capability);
     }
+    Object.defineProperty(ParkingLotK.prototype, "Vehicles", {
+        get: function () {
+            return this._vehicles;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ParkingLotK.prototype, "Address", {
+        get: function () {
+            return this._address;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ParkingLotK.prototype, "Capability", {
+        get: function () {
+            return this._capability;
+        },
+        enumerable: true,
+        configurable: true
+    });
     ParkingLotK.prototype.parkVehicle = function (vehicle) {
         this._vehicles.push(vehicle);
         var tck = vehicle.parkingVehicle();
@@ -169,15 +192,8 @@ var ParkingLotK = (function () {
         }
         return target;
     };
-    Object.defineProperty(ParkingLotK.prototype, "Vehicles", {
-        get: function () {
-            return this._vehicles;
-        },
-        enumerable: true,
-        configurable: true
-    });
     return ParkingLotK;
 })();
 var test = new Vehicle("Fiat", 2323, 23232);
-var parcheggio = new ParkingLotK();
+var parcheggio = new ParkingLotK("Via resistenza 12", 23);
 parcheggio.parkVehicle(test);

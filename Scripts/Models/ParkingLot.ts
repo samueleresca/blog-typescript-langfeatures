@@ -1,21 +1,35 @@
 /// <reference path="Vehicle.ts"/>
 /// <reference path="Utils.ts"/>
 
-
 interface ParkingLot<V, T> {
 	parkVehicle(vehicle: V): T;
 	exitVehicle(ticket: T): V;
 }
 
-
-
-
 class ParkingLotK implements ParkingLot<Vehicle, Ticket>  {
+
+	private _address: string;
+	private _capability: number;
 
 	private _vehicles: Array<Vehicle>;
 	//TODO:More constructor????
-	constructor(){
-		this._vehicles=new Array<Vehicle>();
+	constructor(address: string, capability: number){
+		this._address= address;
+		this._capability= capability;
+		this._vehicles=new Array<Vehicle>(this._capability);
+	}
+	
+		
+	get Vehicles(){
+		return this._vehicles;
+	}
+	
+	get Address(){
+		return this._address;
+	}
+	
+	get Capability(){
+		return this._capability;
 	}
 	
 	parkVehicle(vehicle: Vehicle): Ticket {
@@ -41,16 +55,13 @@ class ParkingLotK implements ParkingLot<Vehicle, Ticket>  {
 		return target;
 	}
 	
-	
-	get Vehicles(){
-		return this._vehicles;
-	}
+
 }
 
 
 
 var test= new Vehicle("Fiat",2323,23232);
-var parcheggio = new ParkingLotK();
+var parcheggio = new ParkingLotK("Via resistenza 12", 23);
 
 parcheggio.parkVehicle(test);
 

@@ -1,12 +1,14 @@
-/// <reference path="Vehicle.ts"/>
-/// <reference path="Utils.ts"/>
+/// <reference path="..\Vehicle.ts"/>
+/// <reference path="..\Utils.ts"/>
+
+
 
 interface ParkingLot<V, T> {
 	parkVehicle(vehicle: V): T;
 	exitVehicle(ticket: T): V;
 }
 
-class ParkingLotK implements ParkingLot<Vehicle, Ticket>  {
+class ParkingLotSimple implements ParkingLot<Vehicle, Ticket>  {
 
 	private _address: string;
 	private _capability: number;
@@ -25,12 +27,13 @@ class ParkingLotK implements ParkingLot<Vehicle, Ticket>  {
 	}
 	
 	get Address(){
-		return this._address;
+return this._address;
 	}
 	
 	get Capability(){
 		return this._capability;
 	}
+	
 	
 	parkVehicle(vehicle: Vehicle): Ticket {
 		this._vehicles.push(vehicle);
@@ -43,6 +46,8 @@ class ParkingLotK implements ParkingLot<Vehicle, Ticket>  {
 				
 		return tck;
 	}
+
+
 
 	exitVehicle(ticket: Ticket): Vehicle {
 		var targetId= ticket.Id;
@@ -58,10 +63,4 @@ class ParkingLotK implements ParkingLot<Vehicle, Ticket>  {
 
 }
 
-
-
-var test= new Vehicle("Fiat",2323,23232);
-var parcheggio = new ParkingLotK("Via resistenza 12", 23);
-
-parcheggio.parkVehicle(test);
 

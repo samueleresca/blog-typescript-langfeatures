@@ -21,8 +21,9 @@ module.exports = function (grunt) {
                 dest: 'Scripts/compiled/main.js', //compiled inside main.js
                 options: {
                     module: 'amd',
-                    target: 'es5'
-                }
+                    target: 'es5',
+                    sourceMap:true
+            }
             }
         },
         watch: {

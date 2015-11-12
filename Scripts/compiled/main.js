@@ -145,37 +145,37 @@ if (!Array.prototype.find) {
         return undefined;
     };
 }
-/// <reference path="Vehicle.ts"/>
-/// <reference path="Utils.ts"/>
-var ParkingLotK = (function () {
+/// <reference path="..\Vehicle.ts"/>
+/// <reference path="..\Utils.ts"/>
+var ParkingLotSimple = (function () {
     //TODO:More constructor????
-    function ParkingLotK(address, capability) {
+    function ParkingLotSimple(address, capability) {
         this._address = address;
         this._capability = capability;
         this._vehicles = new Array(this._capability);
     }
-    Object.defineProperty(ParkingLotK.prototype, "Vehicles", {
+    Object.defineProperty(ParkingLotSimple.prototype, "Vehicles", {
         get: function () {
             return this._vehicles;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ParkingLotK.prototype, "Address", {
+    Object.defineProperty(ParkingLotSimple.prototype, "Address", {
         get: function () {
             return this._address;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ParkingLotK.prototype, "Capability", {
+    Object.defineProperty(ParkingLotSimple.prototype, "Capability", {
         get: function () {
             return this._capability;
         },
         enumerable: true,
         configurable: true
     });
-    ParkingLotK.prototype.parkVehicle = function (vehicle) {
+    ParkingLotSimple.prototype.parkVehicle = function (vehicle) {
         this._vehicles.push(vehicle);
         var tck = vehicle.parkingVehicle();
         if (tck == null) {
@@ -183,7 +183,7 @@ var ParkingLotK = (function () {
         }
         return tck;
     };
-    ParkingLotK.prototype.exitVehicle = function (ticket) {
+    ParkingLotSimple.prototype.exitVehicle = function (ticket) {
         var targetId = ticket.Id;
         //TODO: Verifica corretto funzionamento su tuttti i browser
         var target = this._vehicles.find(function (tmp) { return tmp.Ticket.Id == targetId; });
@@ -192,8 +192,15 @@ var ParkingLotK = (function () {
         }
         return target;
     };
-    return ParkingLotK;
+    return ParkingLotSimple;
 })();
-var test = new Vehicle("Fiat", 2323, 23232);
-var parcheggio = new ParkingLotK("Via resistenza 12", 23);
-parcheggio.parkVehicle(test);
+/// <reference path="Models\Repository\ParkingLot.ts"/>
+/// <reference path="Models\Car.ts"/>
+var parkingLot = new ParkingLotSimple("Beautiful St.", 234);
+var carFiat = new Car("Fiat", 3.5, 1.2, "Test", "EFGNXXX");
+var carOpel = new Car("Opel", 2.5, 1.4, "Test-2", "FFGGXX");
+var carCitroen = new Car("Citroen", 1.5, 1.6, "Test-3", "XXXTTH");
+parkingLot.parkVehicle(carFiat);
+parkingLot.parkVehicle(carOpel);
+parkingLot.parkVehicle(carOpel);
+//# sourceMappingURL=main.js.map

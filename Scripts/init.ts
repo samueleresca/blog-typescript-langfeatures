@@ -15,7 +15,6 @@ var ticketCitroen= parkingLot.parkVehicle(carCitroen);
 
 
 //Cars owners returns to parking with ticket..
-
 parkingLot.exitVehicle(ticketFiat);
 parkingLot.exitVehicle(ticketOpel);
 parkingLot.exitVehicle(ticketCitroen);

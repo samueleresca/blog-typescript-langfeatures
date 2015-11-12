@@ -1,4 +1,3 @@
-
 class Ticket {
 	private _id: string;
 	private _enterDate: Date;

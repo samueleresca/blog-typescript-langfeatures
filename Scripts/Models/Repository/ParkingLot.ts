@@ -1,5 +1,5 @@
 /// <reference path="..\Vehicle.ts"/>
-/// <reference path="..\Utils.ts"/>
+/// <reference path="Utils.ts"/>
 
 
 

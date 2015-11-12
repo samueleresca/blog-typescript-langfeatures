@@ -6,7 +6,7 @@ class Vehicle {
 	private _weight: number;
 
 	private _isParked: boolean;
-	private ticket: Ticket;
+	private _ticket: Ticket;
 
 
 	constructor(brand: string, height: number, weight: number) {
@@ -15,11 +15,12 @@ class Vehicle {
 		this._weight = weight
 	}
 
-	parkingCar(): Ticket {
+	parkingVehicle(): Ticket {
 
 		if (!this._isParked) {
 			var id = Math.floor(Math.random() * 10).toString();
 			var newTck = new Ticket(id, null);
+			this._ticket = newTck;
 			return newTck;
 		}
 		return null;
@@ -48,8 +49,8 @@ class Vehicle {
 	set Weight(weight: number) {
 		this._weight = weight;
 	}
-	
-	get Ticket(){
-		return this.ticket;
+
+	get Ticket() {
+		return this._ticket;
 	}
 }

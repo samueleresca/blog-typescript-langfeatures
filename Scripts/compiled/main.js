@@ -4,7 +4,7 @@ var Ticket = (function () {
         this._enterDate = new Date(); //GET CURRENT DATE
         this._exitDate = exitDate;
     }
-    Object.defineProperty(Ticket.prototype, "getId", {
+    Object.defineProperty(Ticket.prototype, "Id", {
         get: function () {
             return this._id;
         },
@@ -40,10 +40,11 @@ var Vehicle = (function () {
         this._height = height;
         this._weight = weight;
     }
-    Vehicle.prototype.parkingCar = function () {
+    Vehicle.prototype.parkingVehicle = function () {
         if (!this._isParked) {
             var id = Math.floor(Math.random() * 10).toString();
             var newTck = new Ticket(id, null);
+            this._ticket = newTck;
             return newTck;
         }
         return null;
@@ -68,16 +69,19 @@ var Vehicle = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Vehicle.prototype, "getWeight", {
+    Object.defineProperty(Vehicle.prototype, "Weight", {
         get: function () {
             return this._weight;
+        },
+        set: function (weight) {
+            this._weight = weight;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Vehicle.prototype, "setWeight", {
-        set: function (weight) {
-            this._weight = weight;
+    Object.defineProperty(Vehicle.prototype, "Ticket", {
+        get: function () {
+            return this._ticket;
         },
         enumerable: true,
         configurable: true
@@ -120,16 +124,60 @@ var Car = (function (_super) {
     });
     return Car;
 })(Vehicle);
+if (!Array.prototype.find) {
+    Array.prototype.find = function (predicate) {
+        if (this == null) {
+            throw new TypeError('Array.prototype.find called on null or undefined');
+        }
+        if (typeof predicate !== 'function') {
+            throw new TypeError('predicate must be a function');
+        }
+        var list = Object(this);
+        var length = list.length >>> 0;
+        var thisArg = arguments[1];
+        var value;
+        for (var i = 0; i < length; i++) {
+            value = list[i];
+            if (predicate.call(thisArg, value, i, list)) {
+                return value;
+            }
+        }
+        return undefined;
+    };
+}
 /// <reference path="Vehicle.ts"/>
+/// <reference path="Utils.ts"/>
 var ParkingLotK = (function () {
-    function ParkingLotK(vehicles) {
-        this._vehicles = vehicles;
+    //TODO:More constructor????
+    function ParkingLotK() {
+        this._vehicles = new Array();
     }
     ParkingLotK.prototype.parkVehicle = function (vehicle) {
-        return new Ticket(null, null);
+        this._vehicles.push(vehicle);
+        var tck = vehicle.parkingVehicle();
+        if (tck == null) {
+            return null;
+        }
+        return tck;
     };
     ParkingLotK.prototype.exitVehicle = function (ticket) {
-        return new Vehicle(null, null, null);
+        var targetId = ticket.Id;
+        //TODO: Verifica corretto funzionamento su tuttti i browser
+        var target = this._vehicles.find(function (tmp) { return tmp.Ticket.Id == targetId; });
+        if (target == null) {
+            return null;
+        }
+        return target;
     };
+    Object.defineProperty(ParkingLotK.prototype, "Vehicles", {
+        get: function () {
+            return this._vehicles;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return ParkingLotK;
 })();
+var test = new Vehicle("Fiat", 2323, 23232);
+var parcheggio = new ParkingLotK();
+parcheggio.parkVehicle(test);

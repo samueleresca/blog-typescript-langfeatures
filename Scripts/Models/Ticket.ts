@@ -10,7 +10,7 @@ class Ticket {
 		this._exitDate = exitDate;
 	}
 
-	get getId() {
+	get Id() {
 		return this._id;
 	}
 

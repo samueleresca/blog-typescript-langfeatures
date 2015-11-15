@@ -21,6 +21,7 @@ class Vehicle {
 			var id = Math.floor(Math.random() * 10).toString();
 			var newTck = new Ticket(id, undefined);
 			this._ticket = newTck;
+			this._isParked=true;
 			return newTck;
 		}
 		return undefined;

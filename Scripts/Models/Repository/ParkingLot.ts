@@ -8,7 +8,7 @@ interface ParkingLot<V, T> {
 	exitVehicle(ticket: T): V;
 }
 
-class ParkingLotSimple implements ParkingLot<Vehicle, Ticket>  {
+class MyParkingLot implements ParkingLot<Vehicle, Ticket>  {
 
 	private _address: string;
 	private _capability: number;
@@ -52,7 +52,7 @@ class ParkingLotSimple implements ParkingLot<Vehicle, Ticket>  {
 		if(index>-1){
 			this._vehicles.splice(index,1);
 		}
-
+		
 		if (target == undefined) {
 			return undefined;
 		}

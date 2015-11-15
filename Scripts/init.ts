@@ -1,7 +1,7 @@
 /// <reference path="Models\Repository\ParkingLot.ts"/>
 /// <reference path="Models\Car.ts"/>
 
-var parkingLot= new ParkingLotSimple("Beautiful St.", 234);
+var parkingLot= new MyParkingLot("Beautiful St.", 234);
 
 
 var carFiat= new Car("Fiat", 3.5, 1.2, "Test", "EFGNXXX");

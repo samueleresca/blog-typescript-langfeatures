@@ -147,35 +147,35 @@ if (!Array.prototype.find) {
 }
 /// <reference path="..\Vehicle.ts"/>
 /// <reference path="Utils.ts"/>
-var ParkingLotSimple = (function () {
+var MyParkingLot = (function () {
     //TODO:More constructor????
-    function ParkingLotSimple(address, capability) {
+    function MyParkingLot(address, capability) {
         this._address = address;
         this._capability = capability;
         this._vehicles = new Array(this._capability);
     }
-    Object.defineProperty(ParkingLotSimple.prototype, "Vehicles", {
+    Object.defineProperty(MyParkingLot.prototype, "Vehicles", {
         get: function () {
             return this._vehicles;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ParkingLotSimple.prototype, "Address", {
+    Object.defineProperty(MyParkingLot.prototype, "Address", {
         get: function () {
             return this._address;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ParkingLotSimple.prototype, "Capability", {
+    Object.defineProperty(MyParkingLot.prototype, "Capability", {
         get: function () {
             return this._capability;
         },
         enumerable: true,
         configurable: true
     });
-    ParkingLotSimple.prototype.parkVehicle = function (vehicle) {
+    MyParkingLot.prototype.parkVehicle = function (vehicle) {
         this._vehicles.push(vehicle);
         var tck = vehicle.parkingVehicle();
         if (tck == undefined) {
@@ -183,7 +183,7 @@ var ParkingLotSimple = (function () {
         }
         return tck;
     };
-    ParkingLotSimple.prototype.exitVehicle = function (ticket) {
+    MyParkingLot.prototype.exitVehicle = function (ticket) {
         var targetId = ticket.Id;
         //TODO: Verifica corretto funzionamento su tuttti i browser
         var target = this._vehicles.find(function (tmp) { return typeof tmp !== "undefined" && tmp.Ticket.Id == targetId; });
@@ -196,11 +196,11 @@ var ParkingLotSimple = (function () {
         }
         return target;
     };
-    return ParkingLotSimple;
+    return MyParkingLot;
 })();
 /// <reference path="Models\Repository\ParkingLot.ts"/>
 /// <reference path="Models\Car.ts"/>
-var parkingLot = new ParkingLotSimple("Beautiful St.", 234);
+var parkingLot = new MyParkingLot("Beautiful St.", 234);
 var carFiat = new Car("Fiat", 3.5, 1.2, "Test", "EFGNXXX");
 var carOpel = new Car("Opel", 2.5, 1.4, "Test-2", "FFGGXX");
 var carCitroen = new Car("Citroen", 1.5, 1.6, "Test-3", "XXXTTH");

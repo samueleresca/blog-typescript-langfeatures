@@ -11,14 +11,12 @@ interface ParkingLot<V, T> {
 class MyParkingLot implements ParkingLot<Vehicle, Ticket>  {
 
 	private _address: string;
-	private _capability: number;
 
 	private _vehicles: Array<Vehicle>;
-	//TODO:More constructor????
-	constructor(address: string, capability: number) {
+
+	constructor(address: string) {
 		this._address = address;
-		this._capability = capability;
-		this._vehicles = new Array<Vehicle>(this._capability);
+		this._vehicles = new Array<Vehicle>();
 	}
 
 
@@ -30,31 +28,29 @@ class MyParkingLot implements ParkingLot<Vehicle, Ticket>  {
 		return this._address;
 	}
 
-	get Capability() {
-		return this._capability;
-	}
 	parkVehicle(vehicle: Vehicle): Ticket {
-		this._vehicles.push(vehicle);
-
 		var tck = vehicle.parkingVehicle();
+		this._vehicles.push(vehicle);
 
 		if (tck == undefined) {
 			return undefined;
 		}
-
 		return tck;
 	}
 	exitVehicle(ticket: Ticket): Vehicle {
+		
+		ticket.
+		
 		var targetId = ticket.Id;
 		//TODO: Verifica corretto funzionamento su tuttti i browser
-		var target = this._vehicles.find(tmp=> typeof tmp !== "undefined" && tmp.Ticket.Id == targetId);
+		var target = this._vehicles.find(tmp=> typeof tmp !== null && tmp.Ticket.Id == targetId);
 		var index = this._vehicles.indexOf(target);
 		if(index>-1){
 			this._vehicles.splice(index,1);
 		}
 		
-		if (target == undefined) {
-			return undefined;
+		if (target == null) {
+			return null;
 		}
 		return target;
 	}

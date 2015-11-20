@@ -1,33 +1,23 @@
 var Ticket = (function () {
-    function Ticket(id, exitDate) {
-        this._id = id;
+    function Ticket(parking_lot) {
+        this._id = parking_lot + "-" + ((new Date()).getTime().toString());
         this._enterDate = new Date(); //GET CURRENT DATE
-        this._exitDate = exitDate;
+        this._exitDate = null;
     }
     Object.defineProperty(Ticket.prototype, "Id", {
-        get: function () {
-            return this._id;
-        },
+        get: function () { return this._id; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Ticket.prototype, "EnterDate", {
-        get: function () {
-            return this._enterDate;
-        },
-        set: function (date) {
-            this._enterDate = date;
-        },
+        get: function () { return this._enterDate; },
+        set: function (date) { this._enterDate = date; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Ticket.prototype, "ExitDate", {
-        get: function () {
-            return this._exitDate;
-        },
-        set: function (date) {
-            this._exitDate = date;
-        },
+        get: function () { return this._exitDate; },
+        set: function (date) { this._exitDate = date; },
         enumerable: true,
         configurable: true
     });
@@ -35,54 +25,41 @@ var Ticket = (function () {
 })();
 /// <reference path="Ticket.ts"/>
 var Vehicle = (function () {
-    function Vehicle(brand, height, weight) {
+    function Vehicle(license_plate, brand, height, weight) {
         this._brand = brand;
         this._height = height;
         this._weight = weight;
+        this._license_plate = license_plate;
     }
     Vehicle.prototype.parkingVehicle = function () {
         if (!this._isParked) {
-            var id = Math.floor(Math.random() * 10).toString();
-            var newTck = new Ticket(id, undefined);
+            var newTck = new Ticket(this._license_plate);
             this._ticket = newTck;
+            this._isParked = true;
             return newTck;
         }
-        return undefined;
+        return null;
     };
     Object.defineProperty(Vehicle.prototype, "Brand", {
-        get: function () {
-            return this._brand;
-        },
-        set: function (brand) {
-            this._brand = brand;
-        },
+        get: function () { return this._brand; },
+        set: function (brand) { this._brand = brand; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Vehicle.prototype, "Height", {
-        get: function () {
-            return this._height;
-        },
-        set: function (height) {
-            this._height = height;
-        },
+        get: function () { return this._height; },
+        set: function (height) { this._height = height; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Vehicle.prototype, "Weight", {
-        get: function () {
-            return this._weight;
-        },
-        set: function (weight) {
-            this._weight = weight;
-        },
+        get: function () { return this._weight; },
+        set: function (weight) { this._weight = weight; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(Vehicle.prototype, "Ticket", {
-        get: function () {
-            return this._ticket;
-        },
+        get: function () { return this._ticket; },
         enumerable: true,
         configurable: true
     });
@@ -97,28 +74,13 @@ var __extends = (this && this.__extends) || function (d, b) {
 /// <reference path="Vehicle.ts"/>
 var Car = (function (_super) {
     __extends(Car, _super);
-    function Car(brand, height, weight, car_insurance, license_plate) {
-        _super.call(this, brand, height, weight);
+    function Car(license_plate, brand, height, weight, car_insurance) {
+        _super.call(this, license_plate, brand, height, weight);
         this._car_insurance = car_insurance;
-        this._license_plate = license_plate;
     }
     Object.defineProperty(Car.prototype, "CarInsurance", {
-        get: function () {
-            return this._car_insurance;
-        },
-        set: function (car_insurance) {
-            this._car_insurance = car_insurance;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Car.prototype, "LicensePlate", {
-        get: function () {
-            return this._license_plate;
-        },
-        set: function (license_plate) {
-            this._license_plate = license_plate;
-        },
+        get: function () { return this._car_insurance; },
+        set: function (car_insurance) { this._car_insurance = car_insurance; },
         enumerable: true,
         configurable: true
     });
@@ -148,11 +110,9 @@ if (!Array.prototype.find) {
 /// <reference path="..\Vehicle.ts"/>
 /// <reference path="Utils.ts"/>
 var MyParkingLot = (function () {
-    //TODO:More constructor????
-    function MyParkingLot(address, capability) {
+    function MyParkingLot(address) {
         this._address = address;
-        this._capability = capability;
-        this._vehicles = new Array(this._capability);
+        this._vehicles = new Array();
     }
     Object.defineProperty(MyParkingLot.prototype, "Vehicles", {
         get: function () {
@@ -168,16 +128,9 @@ var MyParkingLot = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MyParkingLot.prototype, "Capability", {
-        get: function () {
-            return this._capability;
-        },
-        enumerable: true,
-        configurable: true
-    });
     MyParkingLot.prototype.parkVehicle = function (vehicle) {
-        this._vehicles.push(vehicle);
         var tck = vehicle.parkingVehicle();
+        this._vehicles.push(vehicle);
         if (tck == undefined) {
             return undefined;
         }
@@ -186,13 +139,13 @@ var MyParkingLot = (function () {
     MyParkingLot.prototype.exitVehicle = function (ticket) {
         var targetId = ticket.Id;
         //TODO: Verifica corretto funzionamento su tuttti i browser
-        var target = this._vehicles.find(function (tmp) { return typeof tmp !== "undefined" && tmp.Ticket.Id == targetId; });
+        var target = this._vehicles.find(function (tmp) { return typeof tmp !== null && tmp.Ticket.Id == targetId; });
         var index = this._vehicles.indexOf(target);
         if (index > -1) {
             this._vehicles.splice(index, 1);
         }
-        if (target == undefined) {
-            return undefined;
+        if (target == null) {
+            return null;
         }
         return target;
     };
@@ -200,16 +153,16 @@ var MyParkingLot = (function () {
 })();
 /// <reference path="Models\Repository\ParkingLot.ts"/>
 /// <reference path="Models\Car.ts"/>
-var parkingLot = new MyParkingLot("Beautiful St.", 234);
-var carFiat = new Car("Fiat", 3.5, 1.2, "Test", "EFGNXXX");
-var carOpel = new Car("Opel", 2.5, 1.4, "Test-2", "FFGGXX");
-var carCitroen = new Car("Citroen", 1.5, 1.6, "Test-3", "XXXTTH");
-//Cars are entering, all tickets are saved
+//New parking lot in Beautiful St.
+var parkingLot = new MyParkingLot("Beautiful St.");
+//New cars
+var carFiat = new Car("EFGNXXX", "Fiat", 3.5, 1.2, "Test");
+var carOpel = new Car("FFGGXX", "Opel", 2.5, 1.4, "Test-2");
+var carCitroen = new Car("XXXTTH", "Citroen", 1.5, 1.6, "Test-3");
+//Cars are entering, all tickets are saved..
 var ticketFiat = parkingLot.parkVehicle(carFiat);
 var ticketOpel = parkingLot.parkVehicle(carOpel);
 var ticketCitroen = parkingLot.parkVehicle(carCitroen);
-//Cars owners returns to parking with ticket..
-parkingLot.exitVehicle(ticketFiat);
-parkingLot.exitVehicle(ticketOpel);
-parkingLot.exitVehicle(ticketCitroen);
+//Parking lot exit...
+var myCar = parkingLot.exitVehicle(ticketOpel);
 //# sourceMappingURL=main.js.map

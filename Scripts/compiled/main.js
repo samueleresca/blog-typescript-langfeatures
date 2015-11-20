@@ -63,15 +63,18 @@ var Vehicle = (function () {
         enumerable: true,
         configurable: true
     });
+    Vehicle.prototype.clearTicket = function () {
+        this._ticket = null;
+    };
     return Vehicle;
 })();
+/// <reference path="Vehicle.ts"/>
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-/// <reference path="Vehicle.ts"/>
 var Car = (function (_super) {
     __extends(Car, _super);
     function Car(license_plate, brand, height, weight, car_insurance) {
@@ -86,6 +89,9 @@ var Car = (function (_super) {
     });
     return Car;
 })(Vehicle);
+/*
+* Custom array finder by Lambda
+*/
 if (!Array.prototype.find) {
     Array.prototype.find = function (predicate) {
         if (this == null) {
@@ -130,16 +136,15 @@ var MyParkingLot = (function () {
     });
     MyParkingLot.prototype.parkVehicle = function (vehicle) {
         var tck = vehicle.parkingVehicle();
-        this._vehicles.push(vehicle);
-        if (tck == undefined) {
-            return undefined;
+        if (tck == null) {
+            return null;
         }
+        this._vehicles.push(vehicle);
         return tck;
     };
     MyParkingLot.prototype.exitVehicle = function (ticket) {
-        var targetId = ticket.Id;
-        //TODO: Verifica corretto funzionamento su tuttti i browser
-        var target = this._vehicles.find(function (tmp) { return typeof tmp !== null && tmp.Ticket.Id == targetId; });
+        ticket.ExitDate = new Date();
+        var target = this._vehicles.find(function (tmp) { return typeof tmp !== null && tmp.Ticket.Id == ticket.Id; });
         var index = this._vehicles.indexOf(target);
         if (index > -1) {
             this._vehicles.splice(index, 1);

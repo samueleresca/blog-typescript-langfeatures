@@ -1,3 +1,6 @@
+/*
+* Custom array finder by Lambda
+*/
 if (!Array.prototype.find) {
   Array.prototype.find = function(predicate) {
     if (this == null) {
@@ -18,11 +21,11 @@ if (!Array.prototype.find) {
       }
     }
     return undefined;
-    
+
   };
 }
 
 
 interface Array<T> {
-    find(predicate: (T) => boolean) : T;
+  find(predicate: (T) => boolean): T;
 }

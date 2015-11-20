@@ -30,28 +30,20 @@ class MyParkingLot implements ParkingLot<Vehicle, Ticket>  {
 
 	parkVehicle(vehicle: Vehicle): Ticket {
 		var tck = vehicle.parkingVehicle();
-		this._vehicles.push(vehicle);
+		if (tck == null) { return null; }
 
-		if (tck == undefined) {
-			return undefined;
-		}
+		this._vehicles.push(vehicle);
 		return tck;
 	}
+
 	exitVehicle(ticket: Ticket): Vehicle {
-		
-		ticket.
-		
-		var targetId = ticket.Id;
-		//TODO: Verifica corretto funzionamento su tuttti i browser
-		var target = this._vehicles.find(tmp=> typeof tmp !== null && tmp.Ticket.Id == targetId);
+		ticket.ExitDate = new Date();
+		var target = this._vehicles.find(tmp=> typeof tmp !== null && tmp.Ticket.Id == ticket.Id);
 		var index = this._vehicles.indexOf(target);
-		if(index>-1){
-			this._vehicles.splice(index,1);
-		}
-		
-		if (target == null) {
-			return null;
-		}
+
+		if (index > -1) { this._vehicles.splice(index, 1); }
+		if (target == null) { return null; }
+
 		return target;
 	}
 }

@@ -10,8 +10,8 @@ class Car extends Vehicle {
 		this._car_insurance = car_insurance;
 	}
 
-	get CarInsurance() {return this._car_insurance;}
-	set CarInsurance(car_insurance: string) {this._car_insurance = car_insurance;}
+	get CarInsurance() { return this._car_insurance; }
+	set CarInsurance(car_insurance: string) { this._car_insurance = car_insurance; }
 
 }
 

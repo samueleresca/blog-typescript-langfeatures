@@ -15,31 +15,35 @@ class Vehicle {
 		this._brand = brand;
 		this._height = height;
 		this._weight = weight;
-		this._license_plate=license_plate;
+		this._license_plate = license_plate;
 	}
 
 	parkingVehicle(): Ticket {
 
 		if (!this._isParked) {
 			var newTck = new Ticket(this._license_plate);
-			
+
 			this._ticket = newTck;
-			this._isParked=true;
+			this._isParked = true;
 			return newTck;
 		}
 		return null;
 	}
 
-	get Brand() {return this._brand;}
-	set Brand(brand: string) {this._brand = brand;}
+	get Brand() { return this._brand; }
+	set Brand(brand: string) { this._brand = brand; }
 
-	get Height() {return this._height;}
-	set Height(height: number) {this._height = height;}
+	get Height() { return this._height; }
+	set Height(height: number) { this._height = height; }
 
-	get Weight() {return this._weight;}
-	set Weight(weight: number) {this._weight = weight;}
+	get Weight() { return this._weight; }
+	set Weight(weight: number) { this._weight = weight; }
 
-	get Ticket() {return this._ticket;}
-	
+	get Ticket() { return this._ticket; }
+
+	public clearTicket(): void {
+		this._ticket = null;
+	}
+
 }
 

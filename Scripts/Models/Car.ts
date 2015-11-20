@@ -1,6 +1,4 @@
 /// <reference path="Vehicle.ts"/>
-
-
 class Car extends Vehicle {
 
 	private _car_insurance: string;

@@ -68,13 +68,13 @@ var Vehicle = (function () {
     };
     return Vehicle;
 })();
-/// <reference path="Vehicle.ts"/>
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+/// <reference path="Vehicle.ts"/>
 var Car = (function (_super) {
     __extends(Car, _super);
     function Car(license_plate, brand, height, weight, car_insurance) {
@@ -89,32 +89,11 @@ var Car = (function (_super) {
     });
     return Car;
 })(Vehicle);
-/*
-* Custom array finder by Lambda
-*/
-if (!Array.prototype.find) {
-    Array.prototype.find = function (predicate) {
-        if (this == null) {
-            throw new TypeError('Array.prototype.find called on null or undefined');
-        }
-        if (typeof predicate !== 'function') {
-            throw new TypeError('predicate must be a function');
-        }
-        var list = Object(this);
-        var length = list.length >>> 0;
-        var thisArg = arguments[1];
-        var value;
-        for (var i = 0; i < length; i++) {
-            value = list[i];
-            if (predicate.call(thisArg, value, i, list)) {
-                return value;
-            }
-        }
-        return undefined;
-    };
-}
 /// <reference path="..\Vehicle.ts"/>
 /// <reference path="Utils.ts"/>
+/*
+*Concrete class
+*/
 var MyParkingLot = (function () {
     function MyParkingLot(address) {
         this._address = address;
@@ -156,6 +135,30 @@ var MyParkingLot = (function () {
     };
     return MyParkingLot;
 })();
+/*
+* Custom array finder by Lambda
+*/
+if (!Array.prototype.find) {
+    Array.prototype.find = function (predicate) {
+        if (this == null) {
+            throw new TypeError('Array.prototype.find called on null or undefined');
+        }
+        if (typeof predicate !== 'function') {
+            throw new TypeError('predicate must be a function');
+        }
+        var list = Object(this);
+        var length = list.length >>> 0;
+        var thisArg = arguments[1];
+        var value;
+        for (var i = 0; i < length; i++) {
+            value = list[i];
+            if (predicate.call(thisArg, value, i, list)) {
+                return value;
+            }
+        }
+        return undefined;
+    };
+}
 /// <reference path="Models\Repository\ParkingLot.ts"/>
 /// <reference path="Models\Car.ts"/>
 //New parking lot in Beautiful St.
